@@ -1,0 +1,11 @@
+.elements__element_heart {
+    width: 22px;
+    height: 19px;
+    position: absolute;
+    top: 316px;
+    right: 20px;
+    bottom: 30px;
+    left: 240px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
