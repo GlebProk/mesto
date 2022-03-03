@@ -1,6 +1,7 @@
 .popup__item {
   width: 358px;
   margin: 0 auto 30px auto;
+  padding-bottom: 13px;
   border: none;
   border-bottom: 1px solid rgba(00, 00, 00, .2);
 

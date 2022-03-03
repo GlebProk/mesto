@@ -16,8 +16,8 @@
       <img class="profile__image" src="./images/foto_kusto.jpg" alt="фото Жак-Ива Кусто">
       <div class="profile__info">
         <h1 class="profile__info_name">Жак-Ив Кусто</h1>
-        <button class="profile__info_edit-button"></button>
         <h2 class="profile__info_vocation">Исследователь океана</h2>
+        <button class="profile__info_edit-button"></button>
       </div>
       <button class="profile__add-button"></button>
     </section>
@@ -46,7 +46,7 @@
       <div class="elements__element">
         <img class="elements__element_image" src="./images/karachaevsk.jpg" alt="фото из Карачаевска">
         <h2 class="elements__element_title">Карачаево-Черкесия</h2>
-        <img class="elements__element_heart" src="./images/heart.svg" alt="">
+        <img class="elements__element_heart" src="./images/heart.svg" alt="сердечко">
       </div>
     </section>
 
@@ -54,9 +54,9 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </section>
 
-    <div class="popup">
-      <form class="popup__container popup_opened">
-        <img class="popup__button-close" src="./images/close_icon.svg" alt="">
+    <div class="popup popup_opened">
+      <form class="popup__container">
+        <img class="popup__button-close" src="./images/close_icon.svg" alt="иконка закрытия формы">
         <h2 class="popup__title">Редактировать профиль</h2>
         <input class="popup__item popup__item_name" type="text" id="name" name="name" placeholder="Имя" required>
         <input class="popup__item popup__item_vocation" type="text" id="vocation" name="vocation" placeholder="О себе" required>
@@ -65,4 +65,34 @@
     </div>
 
   </div>
+
+  <script>
+    let profileInfoName = document.querySelector('.profile__info_name');
+    let profileInfoVocation = document.querySelector('.profile__info_vocation');
+
+    let popupForm = document.querySelector('.popup');
+    let popupItemName = document.querySelector('.popup__item_name');
+    let popupItemVocation = document.querySelector('.popup__item_vocation');
+    let editButton = document.querySelector('.profile__info_edit-button');
+    let closeButton = document.querySelector('.popup__button-close');
+    let saveButton = document.querySelector('.popup__button-save');
+
+    function popup() {
+      popupForm.classList.toggle('popup_opened');
+      popupItemName.value = profileInfoName.innerText;
+      popupItemVocation.value = profileInfoVocation.innerText;
+    }
+
+    function save(evt) {
+      evt.preventDefault();
+      popupForm.classList.toggle('popup_opened');
+      profileInfoName.innerText = popupItemName.value;
+      profileInfoVocation.innerText = popupItemVocation.value;
+    }
+
+    editButton.addEventListener('click', popup);
+    closeButton.addEventListener('click', popup);
+    saveButton.addEventListener('click', save);
+  </script>
+
 </body>

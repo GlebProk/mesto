@@ -1,17 +1,33 @@
 .elements__element {
   position: relative;
-    width: 282px;
-    margin-right: 17px;
-    margin-bottom: 20px;
-    background-color: #FFFFFF;
-    border-radius: 10px;
-
-}
-
-.elements__element:nth-child(3n+3) {
-  margin-right: 0;
+  width: 282px;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 .elements__element:nth-last-child(-n+3) {
   margin-bottom: 0;
+}
+
+@media all and (min-width: 1024px) {
+
+  .elements__element:nth-child(3n+3) {
+    margin-right: 17px;
+    margin-bottom: 20px;
+  }
+}
+
+@media all and (max-width: 1023px) {
+
+  .elements__element:nth-child(2n+1) {
+    margin-right: 17px;
+  }
+}
+
+@media all and (max-width: 320px) {
+
+  .elements__element:last-child {
+    margin-bottom: 0;
+  }
 }

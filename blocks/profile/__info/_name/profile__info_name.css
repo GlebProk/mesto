@@ -1,8 +1,13 @@
 .profile__info_name {
+  width: 294px;
   margin: 0;
   margin-right: 18px;
   margin-bottom: 16px;
   padding: 0;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 
   font-family: Inter, Arial, Helvetica, sans-serif;
   font-style: normal;
@@ -12,4 +17,11 @@
   color: #FFFFFF;
 
   border: 1px red solid;
+}
+
+@media all and (min-width: 320px) and (max-width: 1023px) {
+  .profile__info_vocation {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }

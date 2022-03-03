@@ -11,3 +11,10 @@
 
   border: 1px red solid;
 }
+
+@media all and (min-width: 320px) and (max-width: 1023px) {
+  .profile__info_vocation {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

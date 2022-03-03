@@ -3,4 +3,16 @@
   margin: 40px auto 0 auto;
   position: relative;
   display: flex;
+  flex-wrap: wrap;
+  border: 1px solid red;
+}
+
+
+@media all and (min-width: 320px) and (max-width: 1023px) {
+  .profile {
+    width: 80%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
