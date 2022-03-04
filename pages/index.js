@@ -1,10 +1,10 @@
-let profileInfoName = document.querySelector('.profile__info_name');
-let profileInfoVocation = document.querySelector('.profile__info_vocation');
+let profileInfoName = document.querySelector('.profile__name');
+let profileInfoVocation = document.querySelector('.profile__vocation');
 
 let popupForm = document.querySelector('.popup');
 let popupItemName = document.querySelector('.popup__item_name');
 let popupItemVocation = document.querySelector('.popup__item_vocation');
-let editButton = document.querySelector('.profile__info_edit-button');
+let editButton = document.querySelector('.profile__edit-button');
 let closeButton = document.querySelector('.popup__button-close');
 let saveButton = document.querySelector('.popup__button-save');
 

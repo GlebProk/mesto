@@ -1,4 +1,4 @@
-.elements__element_heart-active {
+.elements__heart {
   width: 22px;
   height: 19px;
   position: absolute;
@@ -9,13 +9,12 @@
   margin-top: auto;
   margin-bottom: auto;
 
-  background-image: url(../../../../images/heartblack.svg);
+  background-image: url(../../../images/heart.svg);
   background-position: center;
   background-repeat: no-repeat;
 }
 
-.elements__element_heart:hover {
+.elements__heart:hover {
   opacity: 0.5;
   cursor: pointer;
 }
-
