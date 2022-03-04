@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css">
-  <title>Mesto</title>
+  <title>MestoRussia</title>
 </head>
 <body class="body">
   <div class="page">
@@ -25,28 +25,33 @@
     <section class="elements">
       <div class="elements__element">
         <img class="elements__element_image" src="./images/karachaevsk.jpg" alt="фото из Карачаевска">
-        <h2 class="elements__element_title">Карачаевск<img class="elements__element_heart" src="./images/heart.svg" alt=""></h2>
+        <h2 class="elements__element_title">Карачаевск</h2>
+        <div class="elements__element_heart"></div>
       </div>
       <div class="elements__element">
-        <img class="elements__element_image" src="./images/elbrus.jpg" alt="фото из Карачаевска">
-        <h2 class="elements__element_title">Гора Эльбрус<img class="elements__element_heart" src="./images/heart.svg" alt=""></h2>
+        <img class="elements__element_image" src="./images/elbrus.jpg" alt="фото c Эльбруса">
+        <h2 class="elements__element_title">Гора Эльбрус</h2>
+        <div class="elements__element_heart"></div>
       </div>
       <div class="elements__element">
-        <img class="elements__element_image" src="./images/dombai.jpg" alt="фото из Карачаевска">
-        <h2 class="elements__element_title">Домбай<img class="elements__element_heart" src="./images/heart.svg" alt=""></h2>
+        <img class="elements__element_image" src="./images/dombai.jpg" alt="фото с Домбая">
+        <h2 class="elements__element_title">Домбай</h2>
+        <div class="elements__element_heart"></div>
       </div>
       <div class="elements__element">
-        <img class="elements__element_image" src="./images/elbrus.jpg" alt="фото из Карачаевска">
-        <h2 class="elements__element_title">Гора Эльбрус<img class="elements__element_heart" src="./images/heart.svg" alt=""></h2>
+        <img class="elements__element_image" src="./images/elbrus.jpg" alt="фото с Эльбруса">
+        <h2 class="elements__element_title">Гора Эльбрус</h2>
+        <div class="elements__element_heart"></div>
       </div>
       <div class="elements__element">
-        <img class="elements__element_image" src="./images/dombai.jpg" alt="фото из Карачаевска">
-        <h2 class="elements__element_title">Домбай<img class="elements__element_heart" src="./images/heart.svg" alt=""></h2>
+        <img class="elements__element_image" src="./images/dombai.jpg" alt="фото с Домбая">
+        <h2 class="elements__element_title">Домбай</h2>
+        <div class="elements__element_heart"></div>
       </div>
       <div class="elements__element">
-        <img class="elements__element_image" src="./images/karachaevsk.jpg" alt="фото из Карачаевска">
+        <img class="elements__element_image" src="./images/karachaevsk.jpg" alt="фото из Карачаево-Черкесии">
         <h2 class="elements__element_title">Карачаево-Черкесия</h2>
-        <img class="elements__element_heart" src="./images/heart.svg" alt="сердечко">
+        <div class="elements__element_heart"></div>
       </div>
     </section>
 
@@ -65,34 +70,5 @@
     </div>
 
   </div>
-
-  <script>
-    let profileInfoName = document.querySelector('.profile__info_name');
-    let profileInfoVocation = document.querySelector('.profile__info_vocation');
-
-    let popupForm = document.querySelector('.popup');
-    let popupItemName = document.querySelector('.popup__item_name');
-    let popupItemVocation = document.querySelector('.popup__item_vocation');
-    let editButton = document.querySelector('.profile__info_edit-button');
-    let closeButton = document.querySelector('.popup__button-close');
-    let saveButton = document.querySelector('.popup__button-save');
-
-    function popup() {
-      popupForm.classList.toggle('popup_opened');
-      popupItemName.value = profileInfoName.innerText;
-      popupItemVocation.value = profileInfoVocation.innerText;
-    }
-
-    function save(evt) {
-      evt.preventDefault();
-      popupForm.classList.toggle('popup_opened');
-      profileInfoName.innerText = popupItemName.value;
-      profileInfoVocation.innerText = popupItemVocation.value;
-    }
-
-    editButton.addEventListener('click', popup);
-    closeButton.addEventListener('click', popup);
-    saveButton.addEventListener('click', save);
-  </script>
-
+  <script src="./pages/index.js"></script>
 </body>

@@ -8,13 +8,21 @@
   font-size: 18px;
   line-height: 22px;
   color: #FFFFFF;
-
-  border: 1px red solid;
 }
 
-@media all and (min-width: 320px) and (max-width: 1023px) {
+@media all and (min-width: 768px) and (max-width: 1023px) {
   .profile__info_vocation {
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+@media all and (min-width: 320px) and (max-width: 767px) {
+  .profile__info_vocation {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
   }
 }
