@@ -10,4 +10,6 @@
 
 Ссылка на готовую страницу: https://glebprok.github.io/mesto/index.html
 
+X
+
 ## Дальше - больше!
