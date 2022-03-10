@@ -17,55 +17,67 @@
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <h2 class="profile__vocation">Исследователь океана</h2>
-        <button class="profile__edit-button"></button>
+        <button class="profile__edit-button" type="button" aria-label="Edit"></button>
       </div>
-      <button class="profile__add-button"></button>
+      <button class="profile__add-button" type="button" aria-label="Add"></button>
     </section>
 
     <section class="elements">
       <div class="elements__element">
         <img class="elements__image" src="./images/karachaevsk.jpg" alt="фото из Карачаевска">
+        <div class="elements__group">
         <h2 class="elements__title">Карачаевск</h2>
-        <div class="elements__heart"></div>
+        <button class="elements__heart" type="button" aria-label="Like"></button>
+        </div>
       </div>
       <div class="elements__element">
         <img class="elements__image" src="./images/elbrus.jpg" alt="фото c Эльбруса">
-        <h2 class="elements__title">Гора Эльбрус</h2>
-        <div class="elements__heart"></div>
+        <div class="elements__group">
+          <h2 class="elements__title">Гора Эльбрус</h2>
+          <button class="elements__heart" type="button" aria-label="Like"></button>
+        </div>
       </div>
       <div class="elements__element">
         <img class="elements__image" src="./images/dombai.jpg" alt="фото с Домбая">
-        <h2 class="elements__title">Домбай</h2>
-        <div class="elements__heart"></div>
+        <div class="elements__group">
+          <h2 class="elements__title">Домбай</h2>
+          <button class="elements__heart" type="button" aria-label="Like"></button>
+        </div>
       </div>
       <div class="elements__element">
         <img class="elements__image" src="./images/elbrus.jpg" alt="фото с Эльбруса">
-        <h2 class="elements__title">Гора Эльбрус</h2>
-        <div class="elements__heart"></div>
+        <div class="elements__group">
+          <h2 class="elements__title">Гора Эльбрус</h2>
+          <button class="elements__heart" type="button" aria-label="Like"></button>
+        </div>
       </div>
       <div class="elements__element">
         <img class="elements__image" src="./images/dombai.jpg" alt="фото с Домбая">
-        <h2 class="elements__title">Домбай</h2>
-        <div class="elements__heart"></div>
+        <div class="elements__group">
+          <h2 class="elements__title">Домбай</h2>
+          <button class="elements__heart" type="button" aria-label="Like"></button>
+        </div>
       </div>
       <div class="elements__element">
         <img class="elements__image" src="./images/karachaevsk.jpg" alt="фото из Карачаево-Черкесии">
-        <h2 class="elements__title">Карачаево-Черкесия</h2>
-        <div class="elements__heart"></div>
+        <div class="elements__group">
+          <h2 class="elements__title">Карачаево-Черкесия</h2>
+          <button class="elements__heart" type="button" aria-label="Like"></button>
+        </div>
       </div>
     </section>
 
-    <section class="footer">
+    <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
-    </section>
+    </footer>
 
-    <div class="popup popup_opened">
-      <form class="popup__container">
-        <img class="popup__button-close" src="./images/close_icon.svg" alt="иконка закрытия формы">
+    <div class="popup">
+      <form class="popup__container" name="Edit_Profile">
+        <button class="popup__button-close" type="button" aria-label="Close"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input class="popup__item popup__item_name" type="text" id="name" name="name" placeholder="Имя" required>
-        <input class="popup__item popup__item_vocation" type="text" id="vocation" name="vocation" placeholder="О себе" required>
-        <button class="popup__button-save" type="submit">Сохранить</button>
+        <input class="popup__item popup__item_field_name" type="text" id="name" name="name" placeholder="Имя" required>
+        <input class="popup__item popup__item_field_vocation" type="text" id="vocation" name="vocation" placeholder="О себе" required>
+        <button class="popup__button-save" type="submit" aria-label="Save">Сохранить</button>
       </form>
     </div>
 

@@ -1,0 +1,10 @@
+.elements__group {
+  position: relative;
+  width: 246px;
+  margin: 25px auto 31px auto;
+  padding: 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

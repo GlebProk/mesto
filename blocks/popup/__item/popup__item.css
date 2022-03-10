@@ -1,7 +1,8 @@
 .popup__item {
   width: 358px;
-  margin: 0 auto 30px auto;
-  padding-bottom: 13px;
+  height: 14px;
+  margin: 0 auto 0 auto;
+  padding: 0 0 13px 0;
   border: none;
   border-bottom: 1px solid rgba(00, 00, 00, .2);
 
@@ -11,10 +12,6 @@
   font-size: 14px;
   line-height: 17px;
   color: #000000;
-}
-
-.popup__item:last-of-type {
-  margin-bottom: 0;
 }
 
 @media all and (min-width: 320px) and (max-width: 767px) {

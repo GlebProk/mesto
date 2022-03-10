@@ -1,6 +1,7 @@
 .elements__title {
   max-width: 190px;
-  margin-left: 21px;
+  margin: 0;
+  padding: 0;
 
   text-overflow: ellipsis;
   white-space: nowrap;
