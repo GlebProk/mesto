@@ -1,9 +1,1 @@
-.popup__item_field_vocation {
-  margin-bottom: 48px;
-}
 
-@media all and (min-width: 320px) and (max-width: 767px) {
-  .popup__item_field_vocation {
-    margin-bottom: 45px;
-  }
-}
