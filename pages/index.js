@@ -28,47 +28,47 @@ const initialCards = [
 const cardsSection = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card').content;
 
-const popupFormProfile = document.querySelector('.popup_edit-profile');
-const profileCloseButton = popupFormProfile.querySelector('.popup__button-close');
+const popups = document.querySelectorAll('.popup');
 
+const popupFormProfile = document.querySelector('.popup_edit-profile');
 const popupItemName = popupFormProfile.querySelector('.popup__item_field_name');
 const popupItemVocation = popupFormProfile.querySelector('.popup__item_field_vocation');
 
 const popupFormAddCard = document.querySelector('.popup_add-card');
-const addCardCloseButton = popupFormAddCard.querySelector('.popup__button-close');
 const saveCardButton = popupFormAddCard.querySelector('.popup__button-save');
-
 const popupItemMesto = popupFormAddCard.querySelector('.popup__item_field_mesto');
 const popupItemLink = popupFormAddCard.querySelector('.popup__item_field_link');
 
 const profileInfoName = document.querySelector('.profile__name');
 const profileInfoVocation = document.querySelector('.profile__vocation');
+
 const editButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
 
 const popupCardImage = document.querySelector('.popup_card-image');
-const imageCloseButton = popupCardImage.querySelector('.popup__button-close');
+const popupFormImage = popupCardImage.querySelector('.popup__image');
+const popupFormFigcaption = popupCardImage.querySelector('.popup__figcaption');
 
 
-function popupOpen(popup) {
+function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
 
-function popupClose(popup) {
+function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
 function editProfile() {
   popupItemName.value = profileInfoName.innerText;
   popupItemVocation.value = profileInfoVocation.innerText;
-  popupOpen(popupFormProfile);
+  openPopup(popupFormProfile);
 }
 
 function saveProfile(evt) {
   evt.preventDefault();
   profileInfoName.innerText = popupItemName.value;
   profileInfoVocation.innerText = popupItemVocation.value;
-  popupClose(popupFormProfile);
+  closePopup(popupFormProfile);
 }
 
 // функция создания новой карточки
@@ -90,46 +90,40 @@ function createCard(link, name) {
 
   // добавляем возможность открыть фото из карточки
   cardElement.querySelector('.elements__button-image').addEventListener('click', () => {
-    popupCardImage.querySelector('.popup__image').src = link;
-    popupCardImage.querySelector('.popup__image').alt = name;
-    popupCardImage.querySelector('.popup__figcaption').textContent = name;
-    popupCardImage.querySelector('.popup__button-close').addEventListener('click', (evt) => {popupClose(popupCardImage);});
-    popupOpen(popupCardImage);
+    popupFormImage.src = link;
+    popupFormImage.alt = name;
+    popupFormFigcaption.textContent = name;
+    openPopup(popupCardImage);
   });
-
-  // добавляем карточку в начало секции
-  cardsSection.prepend(cardElement);
-}
-
-// функция добавления новой карточки
-function addNewCard(evt) {
-  evt.preventDefault();
-  createCard(popupItemLink.value, popupItemMesto.value);
-  popupClose(popupFormAddCard);
-
-  // очищаем поля формы
-  evt.target.reset();
+  return cardElement;
 }
 
 // добавляем 6 карточек из начального массива при загрузке страницы
-initialCards.forEach((item) => {createCard(item.link, item.name)});
+initialCards.forEach((item) => {
+  cardsSection.append(createCard(item.link, item.name));
+});
+
+popups.forEach((popup) => {popup.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('popup__button-close')) {
+    closePopup(popup);}
+  });
+});
 
 // открываем форму редактирования профиля
 editButton.addEventListener('click', editProfile);
+
 // сохраняем изменения
 popupFormProfile.addEventListener('submit', saveProfile);
-// возможность закрыть форму без изменений
-profileCloseButton.addEventListener('click', () => {popupClose(popupFormProfile)});
 
 // открываем форму добавления новой карточки
-addCardButton.addEventListener('click', () => {popupOpen(popupFormAddCard)});
+addCardButton.addEventListener('click', () => {openPopup(popupFormAddCard)});
+
 // добавляем новую карточку в секцию
-popupFormAddCard.addEventListener('submit', addNewCard);
-// возможность закрыть форму без добавления новой карточки
-addCardCloseButton.addEventListener('click', () => {popupClose(popupFormAddCard)});
-
-
-
-
-
+popupFormAddCard.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  cardsSection.prepend(createCard(popupItemLink.value, popupItemMesto.value));
+  closePopup(popupFormAddCard);
+  // очищаем поля формы
+  evt.target.reset();
+});
 
