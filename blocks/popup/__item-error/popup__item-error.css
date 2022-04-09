@@ -1,0 +1,32 @@
+.popup__item-error {
+  opacity: 0;
+  position: absolute;
+  top: 145px;
+  left: 36px;
+  min-height: 12px;
+
+  margin: 0;
+  padding: 0;
+  text-align: left;
+
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+
+  color: #FF0000;
+
+}
+
+.popup__item-error:last-of-type {
+  margin-bottom: 30px;
+  top: 205px;
+  left: 36px;
+}
+
+@media all and (min-width: 320px) and (max-width: 767px) {
+  .popup__item-error:last-of-type {
+    margin-bottom: 45px;
+  }
+}
