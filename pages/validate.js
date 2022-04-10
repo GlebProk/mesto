@@ -69,12 +69,14 @@ const hasInvalidInput = (inputList) => {
   })
 };
 
+
 // Функция принимает массив полей ввода
 // и элемент кнопки, состояние которой нужно менять
-
-const toggleButtonState = (inputList, buttonElement, config) => {
+const toggleButtonState = (form, config) => {
+  const inputArr = Array.from(form.querySelectorAll(config.inputSelector));
+  const buttonElement = form.querySelector(config.submitButtonSelector);
   // Если есть хотя бы один невалидный инпут
-  if (hasInvalidInput(inputList, config)) {
+  if (hasInvalidInput(inputArr, config)) {
     // сделай кнопку неактивной
     buttonElement.classList.add(config.inactiveButtonClass);
     buttonElement.setAttribute("disabled", "");
@@ -89,9 +91,8 @@ const setEventListeners = (formElement, config) => {
   // Находим все поля внутри формы,
   // сделаем из них массив методом Array.from
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
-  const buttonElement = formElement.querySelector(config.submitButtonSelector);
 
-  toggleButtonState(inputList, buttonElement, config);
+  toggleButtonState(formElement, config);
 
   // Обойдём все элементы полученной коллекции
   inputList.forEach((inputElement) => {
@@ -100,7 +101,7 @@ const setEventListeners = (formElement, config) => {
       // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый элемент
       isValid(formElement, inputElement, config);
-      toggleButtonState(inputList, buttonElement, config);
+      toggleButtonState(formElement, config);
     });
   });
 };
@@ -123,3 +124,4 @@ function enableValidation () {
   });
 };
 
+enableValidation(config);
