@@ -22,7 +22,9 @@ class FormValidator {
   }
 
   // функция очищает ошибки для полей ввода
-  _hideSpan() {
+  hideSpan() {
+    this._toggleButtonState();
+
     const spanList = Array.from( this._formItem.querySelectorAll(this._inputSpanError));
     const inputArr = Array.from( this._formItem.querySelectorAll(this._inputSelector));
 
@@ -121,9 +123,6 @@ class FormValidator {
 
 
   enableValidation() {
-    // Очищаем ошибки для полей ввода
-    this._hideSpan();
-
     // Для формы вызовем функцию setEventListeners
     this._setEventListeners();
   };

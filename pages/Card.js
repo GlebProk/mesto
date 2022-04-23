@@ -1,14 +1,11 @@
-import { openPopup } from "./index.js";
-
-const popupCardImage = document.querySelector('.popup_card-image');
-const popupFormImage = popupCardImage.querySelector('.popup__image');
-const popupFormFigcaption = popupCardImage.querySelector('.popup__figcaption');
+import { openPopup, handleCardClick } from "./index.js";
 
 export class Card {
-  constructor(link, name, templateId) {
+  constructor(link, name, templateId, handleCardClick) {
     this._link = link;
     this._name = name;
     this._templateId = templateId;
+    this._handleCardClick = handleCardClick;
   }
 
   // клонируем шаблон для карточки
@@ -46,10 +43,7 @@ export class Card {
 
     // добавляем возможность открыть фото из карточки
     this._element.querySelector('.elements__button-image').addEventListener('click', () => {
-      popupFormImage.src = this._link;
-      popupFormImage.alt = this._name;
-      popupFormFigcaption.textContent = this._name;
-      openPopup(popupCardImage);
+      this._handleCardClick(this._link, this._name);
     });
   }
 }

@@ -40,6 +40,10 @@ const popupFormAddCard  = document.querySelector('.popup_add-card');
 const popupItemMesto = popupFormAddCard.querySelector('.popup__item_field_mesto');
 const popupItemLink = popupFormAddCard.querySelector('.popup__item_field_link');
 
+const popupCardImage = document.querySelector('.popup_card-image');
+const popupFormImage = popupCardImage.querySelector('.popup__image');
+const popupFormFigcaption = popupCardImage.querySelector('.popup__figcaption');
+
 const profileInfoName = document.querySelector('.profile__name');
 const profileInfoVocation = document.querySelector('.profile__vocation');
 
@@ -52,6 +56,9 @@ const formEditProfile = document.querySelector('#Edit_Profile');
 // создаем экземпляры класса FormValidator
 const validFormProfile = new FormValidator(config, formEditProfile);
 const validFormAddCard = new FormValidator(config, formAddCard);
+// включаем валидацию двух форм
+validFormProfile.enableValidation();
+validFormAddCard.enableValidation();
 
 
 function openPopup(popup) {
@@ -67,8 +74,7 @@ function closePopup(popup) {
 function editProfile() {
   popupItemName.value = profileInfoName.innerText;
   popupItemVocation.value = profileInfoVocation.innerText;
-
-  validFormProfile.enableValidation();
+  validFormProfile.hideSpan();
   openPopup(popupFormProfile);
 }
 
@@ -77,6 +83,22 @@ function saveProfile(evt) {
   profileInfoName.innerText = popupItemName.value;
   profileInfoVocation.innerText = popupItemVocation.value;
   closePopup(popupFormProfile);
+}
+
+function handleCardClick(link, name) {
+  popupFormImage.src = link;
+  popupFormImage.alt = name;
+  popupFormFigcaption.textContent = name;
+  openPopup(popupCardImage);
+}
+
+function createCard(link, name) {
+  // создаем экземпляр класса Card
+  const card = new Card (link, name, '#card', handleCardClick);
+  // передаем готовую карточку к публикации
+  const cardElement = card.createCard();
+
+  return cardElement;
 }
 
 // закрытие попапа при клике на крестик и на оверлей
@@ -103,20 +125,13 @@ popupFormProfile.addEventListener('submit', saveProfile);
 
 // добавляем 6 карточек из начального массива при загрузке страницы
 initialCards.forEach((item) => {
-
-  // создаем экземпляр класса Card
-  const card = new Card (item.link, item.name, '#card');
-
-  // передаем готовую карточку к публикации
-  const cardElement = card.createCard();
-
-  cardsSection.append(cardElement);
+  cardsSection.append(createCard(item.link, item.name));
 });
 
 // открываем форму добавления новой карточки
 addCardButton.addEventListener('click', () => {
   formAddCard.reset();
-  validFormAddCard.enableValidation();
+  validFormAddCard.hideSpan();
   openPopup(popupFormAddCard);
 });
 
@@ -124,15 +139,10 @@ addCardButton.addEventListener('click', () => {
 popupFormAddCard.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
-  // создаем экземпляр класса Card
-  const card = new Card (popupItemLink.value, popupItemMesto.value, '#card');
-
-  // передаем готовую карточку к публикации
-  const cardElement = card.createCard();
-  cardsSection.prepend(cardElement);
+  cardsSection.prepend(createCard(popupItemLink.value, popupItemMesto.value));
   closePopup(popupFormAddCard);
   // очищаем поля формы
   evt.target.reset();
 });
 
-export { openPopup };
+export { openPopup, handleCardClick };
