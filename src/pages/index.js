@@ -1,37 +1,12 @@
 import './index.css';
-import { config, FormValidator } from '../components/FormValidator.js'
+import { FormValidator } from '../components/FormValidator.js';
+import { config } from '../utils/constants.js';
+import { initialCards } from '../utils/constants.js';
 import { Card } from '../components/Card.js';
 import { Section } from '../components/Section.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
 const cardsSection = document.querySelector('.elements');
 
@@ -59,29 +34,6 @@ const validFormAddCard = new FormValidator(config, formAddCard);
 validFormProfile.enableValidation();
 validFormAddCard.enableValidation();
 
-
-// добавляем 6 карточек из начального массива при загрузке страницы
-const cardsList = new Section({
-  items: initialCards,
-  renderer: (cardItem) => {
-    // создаем экземпляр класса Card
-    const card = new Card (cardItem.link, cardItem.name, '#card',
-    { handleCardClick: (link, name) => {
-      const popupCardImageOpen = new PopupWithImage(popupCardImage);
-      popupCardImageOpen.open(name, link);
-      popupCardImageOpen.setEventListeners();
-    }});
-    // передаем готовую карточку к публикации
-    const cardElement = card.createCard();
-
-    cardsList.addItem(cardElement);
-  }
-},
-cardsSection);
-
-cardsList.renderItems();
-
-
 // Создаем экземпляр класса UserInfo
 const profileInfo = new UserInfo({name: profileInfoName, vocation: profileInfoVocation});
 
@@ -107,6 +59,33 @@ editButton.addEventListener('click', () => {
 
 });
 
+// Функция создания карточки
+function createCard(link, name) {
+  // создаем экземпляр класса Card
+  const card = new Card (link, name, '#card',
+  { handleCardClick: (link, name) => {
+      popupCardImageOpen.open(name, link);
+    }
+  });
+  // передаем готовую карточку к публикации
+  const cardElement = card.createCard();
+
+  return cardElement;
+}
+
+const popupCardImageOpen = new PopupWithImage(popupCardImage);
+popupCardImageOpen.setEventListeners();
+
+// добавляем 6 карточек из начального массива при загрузке страницы
+const cardsList = new Section({
+  items: initialCards,
+  renderer: (cardItem) => {
+    cardsList.addItem(createCard(cardItem.link, cardItem.name));
+  }
+},
+cardsSection);
+
+cardsList.renderItems();
 
 // Создаем экземпляр класса PopupWithForm
 // для формы добавления новой карточки
@@ -115,17 +94,7 @@ const openPopupFormAddCard = new PopupWithForm({
     const popupAddCard = new Section({
       items: [data],
       renderer: (cardItem) => {
-        // создаем экземпляр класса Card
-        const card = new Card (cardItem.link, cardItem.mesto, '#card',
-        { handleCardClick: (link, name) => {
-          const popupCardImageOpen = new PopupWithImage(popupCardImage);
-          popupCardImageOpen.open(name, link);
-          popupCardImageOpen.setEventListeners();
-        }});
-        // передаем готовую карточку к публикации
-        const cardElement = card.createCard();
-
-        popupAddCard.addItem(cardElement);
+        popupAddCard.addItem(createCard(cardItem.link, cardItem.mesto));
       }
     },
     cardsSection);
@@ -135,13 +104,9 @@ popupFormAddCard)
 
 openPopupFormAddCard.setEventListeners();
 
-
 // Открытие формы добавления новой карточки
 addCardButton.addEventListener('click', () => {
   formAddCard.reset();
   validFormAddCard.hideSpan();
   openPopupFormAddCard.open();
 });
-
-
-
