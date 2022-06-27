@@ -3,17 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>MestoRussia</title>
 </head>
 <body class="body">
   <div class="page">
     <header class="header">
-      <img class="header__logo" src="./images/logo.svg" alt="логотип MestoRussia">
+      <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="логотип MestoRussia">
     </header>
 
     <section class="profile">
-      <img class="profile__image" src="./images/foto_kusto.jpg" alt="фото Жак-Ива Кусто">
+      <img class="profile__image" src="<%=require('./images/foto_kusto.jpg')%>" alt="фото Жак-Ива Кусто">
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <h2 class="profile__vocation">Исследователь океана</h2>
@@ -26,7 +25,7 @@
     </section>
 
     <footer class="footer">
-      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+      <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
     </footer>
 
     <div class="popup popup_edit-profile">
@@ -72,9 +71,5 @@
       <button class="elements__trash" type="button" aria-label="trash"></button>
     </div>
   </template>
-
-  <script type="module" src="./pages/index.js"></script>
-  <script type="module" src="./pages/Card.js"></script>
-  <script type="module" src="./pages/FormValidator.js"></script>
 </body>
 </html>
