@@ -23,9 +23,9 @@ const profileInfoName = document.querySelector('.profile__name');
 const profileInfoVocation = document.querySelector('.profile__vocation');
 const profileAvatar = document.querySelector('.profile__image');
 
-const editButton = document.querySelector('.profile__edit-button');
-const addCardButton = document.querySelector('.profile__add-button');
-const editAvatar = document.querySelector('.profile__image-button');
+const popupProfileOpenButton = document.querySelector('.profile__edit-button');
+const popupCardAddButton= document.querySelector('.profile__add-button');
+const popupAvatarEditButton = document.querySelector('.profile__image-button');
 
 const formAddCard = document.querySelector('#Add_Card');
 const formEditProfile = document.querySelector('#Edit_Profile');
@@ -62,13 +62,6 @@ Promise.all([
     profileInfo.setUserInfo(user);
 
     // Добавляем карточки с сервера при загрузке страницы
-    const cardsList = new Section({
-      renderer: (cardItem) => {
-        cardsList.addItem(createCard(cardItem));
-      }
-    },
-    cardsSection);
-
     cardsList.renderItems(cards);
   })
   .catch((err) => {
@@ -87,6 +80,7 @@ const openPopupFormProfile = new PopupWithForm({
     api.patchUserInfo(data)
       .then((res) => {
         profileInfo.setUserInfo(res);
+        openPopupFormProfile.close();
       })
       .catch((err) => {
         console.log(`Данные пользователя не были обновлены. Ошибка: ${err}`);
@@ -101,7 +95,7 @@ popupFormProfile)
 openPopupFormProfile.setEventListeners();
 
 // Открытие формы редактирования профиля
-editButton.addEventListener('click', () => {
+popupProfileOpenButton.addEventListener('click', () => {
   const profileList = profileInfo.getUserInfo();
 
   popupItemName.value = profileList.name;
@@ -118,7 +112,7 @@ const popupEditAvatarForm = new PopupWithForm({
   handleFormSubmit: (data) => {
     popupEditAvatarForm.renderLoading(true);
     api.editAvatar({
-      avatar: data.link
+      avatar: data.avatar_link
     })
     .then((data) => {
       profileInfo.addAvatar(data);
@@ -136,12 +130,20 @@ const popupEditAvatarForm = new PopupWithForm({
 popupEditAvatarForm.setEventListeners();
 
 // Открытие формы редактирования аватарки
-editAvatar.addEventListener('click', () => {
+popupAvatarEditButton.addEventListener('click', () => {
   formEditAvatar.reset();
   validFormEditAvatar.hideSpan();
   popupEditAvatarForm.open();
 })
 
+// Создаем экземпляр класса Section
+// для добавления карточки в разметку
+const cardsList = new Section({
+  renderer: (cardItem) => {
+    cardsList.addItem(createCard(cardItem));
+  }
+},
+cardsSection);
 
 // Функция создания карточки
 function createCard(item) {
@@ -175,12 +177,11 @@ function createCard(item) {
       if (card.isLiked()) {
         api.deleteLike(card.returnCardId())
         .then((res) => {
-          console.log(res._id);
           card.deleteLike(res._id);
           card.countLike(res.likes)
         })
         .catch((err) => {
-          console.log(`ошибка удаления лайка ${err}`)
+          console.log(`Ошибка при удалении лайка ${err}`)
         })
       } else {
         api.putLike(card.returnCardId())
@@ -190,7 +191,7 @@ function createCard(item) {
           card.countLike(res.likes)
         })
         .catch((err) => {
-          console.log(`ошибка добавления лайка ${err}`)
+          console.log(`Ошибка при добавлении лайка ${err}`)
         })
       }
     },
@@ -214,11 +215,15 @@ const openPopupFormAddCard = new PopupWithForm({
   handleFormSubmit: (data) => {
     openPopupFormAddCard.renderLoading(true);
     api.postNewCard({
-      name: data.name,
-      link: data.link,
+      name: data.card_name,
+      link: data.card_link,
     })
     .then((data) => {
-      popupAddCard.renderItems([data]);
+      cardsList.renderItems([data]);
+      openPopupFormAddCard.close();
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
     })
     .finally(() => {
       openPopupFormAddCard.renderLoading(false);
@@ -229,20 +234,11 @@ popupFormAddCard)
 openPopupFormAddCard.setEventListeners();
 
 // Открытие формы добавления новой карточки
-addCardButton.addEventListener('click', () => {
+popupCardAddButton.addEventListener('click', () => {
   formAddCard.reset();
   validFormAddCard.hideSpan();
   openPopupFormAddCard.open();
 });
-
-// Создаем экземпляр класса Section
-// для добавления новой карточки на страницу
-const popupAddCard = new Section({
-  renderer: (cardItem) => {
-    popupAddCard.addItem(createCard(cardItem));
-  }
-},
-cardsSection);
 
 // Создаем экземпляр класса PopupWithFormDelete
 // для формы при удалении карточки

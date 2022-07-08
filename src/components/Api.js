@@ -4,6 +4,14 @@ export class Api {
     this._headers = options.headers;
   }
 
+  _getResponseData(res) {
+    if (res.ok) {
+      return res.json()
+      }
+      // если ошибка, отклоняем промис
+      return Promise.reject(`Ошибка: ${res}`);
+    }
+
   // Метод получения информации о профиле пользователя
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
@@ -11,15 +19,8 @@ export class Api {
       headers: this._headers,
     })
     .then(res => {
-      if (res.ok) {
-      return res.json();
-      }
-      // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return this._getResponseData(res);
     })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
   }
 
   // Метод получения карточек при открытии страницы
@@ -29,15 +30,8 @@ export class Api {
       headers: this._headers,
     })
     .then(res => {
-      if (res.ok) {
-      return res.json();
-      }
-      // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return this._getResponseData(res);
     })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
   }
 
   // Метод обновления информации о профиле пользователя
@@ -46,20 +40,13 @@ export class Api {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        name: item.name,
+        name: item.user_name,
         about: item.vocation
       })
     })
     .then(res => {
-      if (res.ok) {
-      return res.json();
-      }
-      // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return this._getResponseData(res);
     })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
   }
 
   // Метод добавления созданной пользователем карточки
@@ -73,16 +60,8 @@ export class Api {
       })
     })
     .then(res => {
-      if (res.ok) {
-      return res.json();
-      }
-      // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return this._getResponseData(res);
     })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
-
   }
 
   // Метод удаления карточки
@@ -92,15 +71,8 @@ export class Api {
       headers: this._headers,
     })
     .then(res => {
-      if (res.ok) {
-      return res.json();
-      }
-      // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return this._getResponseData(res);
     })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
   };
 
 
@@ -110,16 +82,9 @@ export class Api {
       method: 'PUT',
       headers: this._headers,
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-        }
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
+    .then(res => {
+      return this._getResponseData(res);
     })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
   };
 
   // Метод удаления лайка на карточке
@@ -128,16 +93,9 @@ export class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
+    .then(res => {
+      return this._getResponseData(res);
     })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
   };
 
   // Метод для редактирования аватарки пользователя
@@ -146,20 +104,11 @@ export class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-          avatar: data.avatar
+        avatar: data.avatar
       })
     })
-    .then((res) => {
-      console.log(data);
-      if (res.ok) {
-        return res.json();
-      }
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
+    .then(res => {
+      return this._getResponseData(res);
     })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
   };
-
 };

@@ -50,6 +50,7 @@ export class Card {
 
   deleteCard() {
     this._element.remove();
+    this._element = null;
   }
 
   isLiked() {

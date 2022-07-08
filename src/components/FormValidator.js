@@ -11,6 +11,12 @@ class FormValidator {
     this._inactiveButtonClass = config.inactiveButtonClass;
 
     this._formItem = formItem;
+
+    // Находим все поля внутри формы,
+    // сделаем из них массив методом Array.from
+    this._inputList = Array.from(this._formItem.querySelectorAll(this._inputSelector));
+
+    this._sumbitButton = this._formItem.querySelector(this._submitButtonSelector);
   }
 
   // функция очищает ошибки для полей ввода
@@ -18,12 +24,11 @@ class FormValidator {
     this._toggleButtonState();
 
     const spanList = Array.from( this._formItem.querySelectorAll(this._inputSpanError));
-    const inputArr = Array.from( this._formItem.querySelectorAll(this._inputSelector));
 
     spanList.forEach((span) => {
       span.classList.remove(this._errorClass);
     });
-    inputArr.forEach((input) => {
+    this._inputList.forEach((input) => {
       input.classList.remove(this._inputErrorClass);
     });
   }
@@ -76,17 +81,16 @@ class FormValidator {
   // Функция принимает массив полей ввода
   // и элемент кнопки, состояние которой нужно менять
   _toggleButtonState() {
-    const inputArr = Array.from(this._formItem.querySelectorAll(this._inputSelector));
-    const buttonElement = this._formItem.querySelector(this._submitButtonSelector);
+
     // Если есть хотя бы один невалидный инпут
-    if (this._hasInvalidInput(inputArr)) {
+    if (this._hasInvalidInput(this._inputList)) {
       // сделай кнопку неактивной
-      buttonElement.classList.add(this._inactiveButtonClass);
-      buttonElement.setAttribute("disabled", "");
+      this._sumbitButton.classList.add(this._inactiveButtonClass);
+      this._sumbitButton.setAttribute("disabled", "");
     } else {
       // иначе сделай кнопку активной
-      buttonElement.classList.remove(this._inactiveButtonClass);
-      buttonElement.removeAttribute("disabled", "");
+      this._sumbitButton.classList.remove(this._inactiveButtonClass);
+      this._sumbitButton.removeAttribute("disabled", "");
     }
   };
 
@@ -95,14 +99,11 @@ class FormValidator {
     this._formItem.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
-    // Находим все поля внутри формы,
-    // сделаем из них массив методом Array.from
-    const inputArr = Array.from(this._formItem.querySelectorAll(this._inputSelector));
 
     this._toggleButtonState();
 
     // Обойдём все элементы полученной коллекции
-    inputArr.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       // каждому полю добавим обработчик события input
       inputElement.addEventListener('input', () => {
         // Внутри колбэка вызовем isValid,
