@@ -40,7 +40,7 @@ export class Api {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        name: item.user_name,
+        name: item.userName,
         about: item.vocation
       })
     })

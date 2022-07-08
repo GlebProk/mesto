@@ -112,7 +112,7 @@ const popupEditAvatarForm = new PopupWithForm({
   handleFormSubmit: (data) => {
     popupEditAvatarForm.renderLoading(true);
     api.editAvatar({
-      avatar: data.avatar_link
+      avatar: data.avatarLink
     })
     .then((data) => {
       profileInfo.addAvatar(data);
@@ -186,7 +186,6 @@ function createCard(item) {
       } else {
         api.putLike(card.returnCardId())
         .then((res) => {
-          console.log(res._id);
           card.addLike(res._id);
           card.countLike(res.likes)
         })
@@ -215,8 +214,8 @@ const openPopupFormAddCard = new PopupWithForm({
   handleFormSubmit: (data) => {
     openPopupFormAddCard.renderLoading(true);
     api.postNewCard({
-      name: data.card_name,
-      link: data.card_link,
+      name: data.cardName,
+      link: data.cardLink,
     })
     .then((data) => {
       cardsList.renderItems([data]);
