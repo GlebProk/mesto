@@ -53,6 +53,15 @@ const api = new Api({
   }
 });
 
+// Создаем экземпляр класса Section
+// для добавления карточки в разметку
+const cardsList = new Section({
+  renderer: (cardItem) => {
+    cardsList.addItem(createCard(cardItem));
+  }
+},
+cardsSection);
+
 Promise.all([
   api.getUserInfo(),
   api.getInitialCard()])
@@ -62,7 +71,7 @@ Promise.all([
     profileInfo.setUserInfo(user);
 
     // Добавляем карточки с сервера при загрузке страницы
-    cardsList.renderItems(cards);
+    cardsList.renderItems(cards.reverse());
   })
   .catch((err) => {
     console.log(`${err}`);
@@ -135,15 +144,6 @@ popupAvatarEditButton.addEventListener('click', () => {
   validFormEditAvatar.hideSpan();
   popupEditAvatarForm.open();
 })
-
-// Создаем экземпляр класса Section
-// для добавления карточки в разметку
-const cardsList = new Section({
-  renderer: (cardItem) => {
-    cardsList.addItem(createCard(cardItem));
-  }
-},
-cardsSection);
 
 // Функция создания карточки
 function createCard(item) {
@@ -218,7 +218,7 @@ const openPopupFormAddCard = new PopupWithForm({
       link: data.cardLink,
     })
     .then((data) => {
-      cardsList.renderItems([data]);
+      cardsList.addItem(createCard(data));
       openPopupFormAddCard.close();
     })
     .catch((err) => {
